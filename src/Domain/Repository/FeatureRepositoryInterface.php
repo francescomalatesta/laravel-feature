@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelFeature\Domain;
+namespace LaravelFeature\Domain\Repository;
 
 
 use LaravelFeature\Domain\Model\Feature;

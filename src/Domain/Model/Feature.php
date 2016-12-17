@@ -10,7 +10,7 @@ class Feature
 
     public static function fromNameAndStatus($name, $isEnabled)
     {
-        $feature = new self($name, $isEnabled);
+        $feature = new self($name, (bool) $isEnabled);
         return $feature;
     }
 
