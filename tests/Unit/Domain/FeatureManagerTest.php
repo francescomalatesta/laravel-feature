@@ -160,4 +160,21 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->disable('my.feature');
     }
+
+    public function testFeatureIsEnabled()
+    {
+        $feature = $this->getMockBuilder(Feature::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $feature->expects($this->once())
+            ->method('isEnabled')
+            ->willReturn(true);
+
+        $this->repositoryMock->expects($this->once())
+            ->method('findByName')
+            ->willReturn($feature);
+
+        $this->assertTrue($this->manager->isEnabled('my.feature'));
+    }
 }

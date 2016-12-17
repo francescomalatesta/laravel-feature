@@ -3,6 +3,7 @@
 namespace LaravelFeature\Tests\Integration\Repository;
 
 
+use LaravelFeature\Domain\Exception\FeatureException;
 use LaravelFeature\Domain\Model\Feature;
 use LaravelFeature\Repository\EloquentFeatureRepository;
 use LaravelFeature\Tests\TestCase;
@@ -31,6 +32,16 @@ class EloquentFeatureRepositoryTest extends TestCase
         ]);
     }
 
+    /**
+     * @expectedException \LaravelFeature\Domain\Exception\FeatureException
+     */
+    public function testSaveThrowsExceptionOnError()
+    {
+        $feature = Feature::fromNameAndStatus(null, true);
+
+        $this->repository->save($feature);
+    }
+
     public function testRemove()
     {
         $this->addTestFeature();
@@ -44,6 +55,19 @@ class EloquentFeatureRepositoryTest extends TestCase
         ]);
     }
 
+    /**
+     * @expectedException \LaravelFeature\Domain\Exception\FeatureException
+     * @expectedExceptionMessage Unable to find the feature.
+     */
+    public function testRemoveThrowsErrorOnFeatureNotFound()
+    {
+        $this->addTestFeature();
+
+        $feature = Feature::fromNameAndStatus('unknown.feature', true);
+
+        $this->repository->remove($feature);
+    }
+
     public function testFindByName()
     {
         $this->addTestFeature();
@@ -51,7 +75,18 @@ class EloquentFeatureRepositoryTest extends TestCase
         /** @var Feature $feature */
         $feature = $this->repository->findByName('test.feature');
 
-        $this->assertTrue($feature->isEnabled());
+        $this->assertNotNull($feature);
+    }
+
+    /**
+     * @expectedException \LaravelFeature\Domain\Exception\FeatureException
+     */
+    public function testFindByNameThrowsErrorOnFeatureNotFound()
+    {
+        $this->addTestFeature();
+
+        /** @var Feature $feature */
+        $this->repository->findByName('unknown.feature');
     }
 
     private function addTestFeature()
