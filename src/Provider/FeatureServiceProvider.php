@@ -3,7 +3,6 @@
 namespace LaravelFeature\Provider;
 
 use Illuminate\Support\ServiceProvider;
-use LaravelFeature\Repository\EloquentFeatureRepository;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 
 class FeatureServiceProvider extends ServiceProvider
@@ -16,6 +15,10 @@ class FeatureServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/../Migration');
+
+        $this->publishes([
+            __DIR__.'/../Config/features.php' => config_path('features.php'),
+        ]);
     }
 
     /**
@@ -25,8 +28,14 @@ class FeatureServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(FeatureRepositoryInterface::class, function () {
-            return new EloquentFeatureRepository();
+        $this->mergeConfigFrom(
+            __DIR__.'/../Config/features.php', 'features'
+        );
+
+        $config = $this->app->make('config');
+
+        $this->app->bind(FeatureRepositoryInterface::class, function () use ($config) {
+            return app()->make($config->get('features.repository'));
         });
     }
 }
