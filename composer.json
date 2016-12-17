@@ -1,0 +1,49 @@
+{
+    "name": "francescomalatesta/laravel-feature",
+    "type": "library",
+    "description": "A simple package to manage feature flagging in a Laravel project.",
+    "keywords": ["laravel", "feature", "flag"],
+    "homepage": "https://github.com/francescomalatesta/laravel-feature",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Francesco Malatesta",
+            "email": "hellofrancesco@gmail.com",
+            "homepage": "https://github.com/francescomalatesta",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.6|~7.0",
+        "illuminate/database": "~5.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "~4.0||~5.0",
+        "orchestra/testbench": "~3.1",
+        "mockery/mockery": "^0.9.4",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelFeature\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaravelFeature\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
