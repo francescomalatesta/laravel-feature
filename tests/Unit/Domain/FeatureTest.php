@@ -7,6 +7,9 @@ use LaravelFeature\Domain\Model\Feature;
 
 class FeatureTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Tests a simple feature object creation.
+     */
     public function testFeatureCreation()
     {
         $feature = Feature::fromNameAndStatus('my.feature', false);
@@ -15,6 +18,9 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($feature->isEnabled());
     }
 
+    /**
+     * Tests the name change for a feature.
+     */
     public function testNameChange()
     {
         $feature = Feature::fromNameAndStatus('old.name', false);
@@ -23,6 +29,9 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('new.name', $feature->getName());
     }
 
+    /**
+     * Tests the enable operation of a feature.
+     */
     public function testEnable()
     {
         $feature = Feature::fromNameAndStatus('my.feature', false);
@@ -32,6 +41,9 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($feature->isEnabled());
     }
 
+    /**
+     * Tests the disable operation of a feature.
+     */
     public function testDisable()
     {
         $feature = Feature::fromNameAndStatus('my.feature', true);

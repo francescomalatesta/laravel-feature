@@ -5,6 +5,7 @@ namespace LaravelFeature\Domain;
 
 use LaravelFeature\Domain\Model\Feature;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
+use LaravelFeature\Featurable\FeaturableInterface;
 
 class FeatureManager
 {
@@ -66,5 +67,20 @@ class FeatureManager
         /** @var Feature $feature */
         $feature = $this->repository->findByName($featureName);
         return $feature->isEnabled();
+    }
+
+    public function enableFor($featureName, FeaturableInterface $featurable)
+    {
+        $this->repository->enableFor($featureName, $featurable);
+    }
+
+    public function disableFor($featureName, FeaturableInterface $featurable)
+    {
+        $this->repository->disableFor($featureName, $featurable);
+    }
+
+    public function isEnabledFor($featureName, FeaturableInterface $featurable)
+    {
+        return $this->repository->isEnabledFor($featureName, $featurable);
     }
 }

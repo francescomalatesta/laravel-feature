@@ -6,6 +6,7 @@ namespace LaravelFeature\Repository;
 use LaravelFeature\Domain\Exception\FeatureException;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 use LaravelFeature\Domain\Model\Feature;
+use LaravelFeature\Featurable\FeaturableInterface;
 use LaravelFeature\Model\Feature as Model;
 
 class EloquentFeatureRepository implements FeatureRepositoryInterface
@@ -37,11 +38,7 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
             throw new FeatureException('Unable to find the feature.');
         }
 
-        try {
-            $model->delete();
-        } catch (\Exception $e) {
-            throw new FeatureException('Unable to remove the feature:' . $e->getMessage());
-        }
+        $model->delete();
     }
 
     public function findByName($featureName)
@@ -56,5 +53,46 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
             $model->name,
             $model->is_enabled
         );
+    }
+
+    public function enableFor($featureName, FeaturableInterface $featurable)
+    {
+        /** @var Model $model */
+        $model = Model::where('name', '=', $featureName)->first();
+        if(!$model) {
+            throw new FeatureException('Unable to find the feature.');
+        }
+
+        if((bool) $model->is_enabled === true || $featurable->hasFeature($featureName) === true) {
+            return;
+        }
+
+        $featurable->features()->attach($model->id);
+    }
+
+    public function disableFor($featureName, FeaturableInterface $featurable)
+    {
+        /** @var Model $model */
+        $model = Model::where('name', '=', $featureName)->first();
+        if(!$model) {
+            throw new FeatureException('Unable to find the feature.');
+        }
+
+        if((bool) $model->is_enabled === true || $featurable->hasFeature($featureName) === false) {
+            return;
+        }
+
+        $featurable->features()->detach($model->id);
+    }
+
+    public function isEnabledFor($featureName, FeaturableInterface $featurable)
+    {
+        /** @var Model $model */
+        $model = Model::where('name', '=', $featureName)->first();
+        if(!$model) {
+            throw new FeatureException('Unable to find the feature.');
+        }
+
+        return ($model->is_enabled) ? true : $featurable->hasFeature($featureName);
     }
 }
