@@ -11,7 +11,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->loadMigrationsFrom([
             '--database' => 'testing',
-            '--realpath' => realpath(__DIR__.'/../src/Migrations'),
+            '--realpath' => realpath(__DIR__.'/../src/Migration'),
         ]);
     }
 
