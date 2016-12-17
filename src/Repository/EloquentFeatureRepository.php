@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Repository;
 
-
 use LaravelFeature\Domain\Exception\FeatureException;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 use LaravelFeature\Domain\Model\Feature;
@@ -16,7 +15,7 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
         /** @var Model $model */
         $model = Model::where('name', '=', $feature->getName())->first();
 
-        if(!$model) {
+        if (!$model) {
             $model = new Model();
         }
 
@@ -34,7 +33,7 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
     {
         /** @var Model $model */
         $model = Model::where('name', '=', $feature->getName())->first();
-        if(!$model) {
+        if (!$model) {
             throw new FeatureException('Unable to find the feature.');
         }
 
@@ -45,7 +44,7 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
     {
         /** @var Model $model */
         $model = Model::where('name', '=', $featureName)->first();
-        if(!$model) {
+        if (!$model) {
             throw new FeatureException('Unable to find the feature.');
         }
 
@@ -59,11 +58,11 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
     {
         /** @var Model $model */
         $model = Model::where('name', '=', $featureName)->first();
-        if(!$model) {
+        if (!$model) {
             throw new FeatureException('Unable to find the feature.');
         }
 
-        if((bool) $model->is_enabled === true || $featurable->hasFeature($featureName) === true) {
+        if ((bool) $model->is_enabled === true || $featurable->hasFeature($featureName) === true) {
             return;
         }
 
@@ -74,11 +73,11 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
     {
         /** @var Model $model */
         $model = Model::where('name', '=', $featureName)->first();
-        if(!$model) {
+        if (!$model) {
             throw new FeatureException('Unable to find the feature.');
         }
 
-        if((bool) $model->is_enabled === true || $featurable->hasFeature($featureName) === false) {
+        if ((bool) $model->is_enabled === true || $featurable->hasFeature($featureName) === false) {
             return;
         }
 
@@ -89,7 +88,7 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
     {
         /** @var Model $model */
         $model = Model::where('name', '=', $featureName)->first();
-        if(!$model) {
+        if (!$model) {
             throw new FeatureException('Unable to find the feature.');
         }
 

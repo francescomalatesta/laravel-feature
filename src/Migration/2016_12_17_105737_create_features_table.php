@@ -13,7 +13,7 @@ class CreateFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('features', function(Blueprint $table) {
+        Schema::create('features', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');

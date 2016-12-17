@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Tests\Integration\Repository;
 
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use LaravelFeature\Domain\Model\Feature;
@@ -289,7 +288,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
     private function createTestEntityTable()
     {
-        \Schema::create('featurabletestentities', function(Blueprint $table){
+        \Schema::create('featurabletestentities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();

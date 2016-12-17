@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Domain\Model;
 
-
 class Feature
 {
     private $name;

@@ -2,13 +2,11 @@
 
 namespace LaravelFeature\Tests\Domain;
 
-
 use LaravelFeature\Domain\FeatureManager;
 use LaravelFeature\Domain\Exception\FeatureException;
 use LaravelFeature\Domain\Model\Feature;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 use LaravelFeature\Featurable\FeaturableInterface;
-
 
 class FeatureManagerTest extends \PHPUnit_Framework_TestCase
 {

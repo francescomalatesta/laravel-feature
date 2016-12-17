@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Domain\Repository;
 
-
 use LaravelFeature\Domain\Model\Feature;
 use LaravelFeature\Featurable\FeaturableInterface;
 

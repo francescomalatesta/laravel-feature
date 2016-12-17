@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Provider;
 
-
 use Illuminate\Support\ServiceProvider;
 use LaravelFeature\Repository\EloquentFeatureRepository;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
@@ -26,7 +25,7 @@ class FeatureServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(FeatureRepositoryInterface::class, function(){
+        $this->app->bind(FeatureRepositoryInterface::class, function () {
             return new EloquentFeatureRepository();
         });
     }

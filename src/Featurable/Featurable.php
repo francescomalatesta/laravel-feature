@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Featurable;
 
-
 use LaravelFeature\Model\Feature as FeatureModel;
 use LaravelFeature\Model\Feature;
 
@@ -12,7 +11,7 @@ trait Featurable
     {
         $model = FeatureModel::where('name', '=', $featureName)->first();
 
-        if((bool) $model->is_enabled === true) {
+        if ((bool) $model->is_enabled === true) {
             return true;
         }
 
