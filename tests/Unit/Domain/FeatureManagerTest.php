@@ -5,8 +5,8 @@ namespace LaravelFeature\Tests\Domain;
 
 use LaravelFeature\Domain\FeatureManager;
 use LaravelFeature\Domain\Exception\FeatureException;
-use LaravelFeature\Domain\FeatureRepositoryInterface;
 use LaravelFeature\Domain\Model\Feature;
+use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 
 class FeatureManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,6 +51,14 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRemove()
     {
+        $feature = $this->getMockBuilder(Feature::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->repositoryMock->expects($this->once())
+            ->method('findByName')
+            ->willReturn($feature);
+
         $this->repositoryMock->expects($this->once())
             ->method('remove');
 

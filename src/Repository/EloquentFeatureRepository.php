@@ -22,11 +22,11 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
         $model->name = $feature->getName();
         $model->is_enabled = $feature->isEnabled();
 
-        if(!$model->save()){
-            throw new FeatureException('Unable to save the feature.');
+        try {
+            $model->save();
+        } catch (\Exception $e) {
+            throw new FeatureException('Unable to save the feature: ' . $e->getMessage());
         }
-
-        $model->save();
     }
 
     public function remove(Feature $feature)
@@ -37,8 +37,10 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
             throw new FeatureException('Unable to find the feature.');
         }
 
-        if(!$model->delete()) {
-            throw new FeatureException('Unable to remove the feature.');
+        try {
+            $model->delete();
+        } catch (\Exception $e) {
+            throw new FeatureException('Unable to remove the feature:' . $e->getMessage());
         }
     }
 
