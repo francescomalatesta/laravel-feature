@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Service;
 
-
 use Illuminate\Config\Repository;
 use LaravelFeature\Domain\FeatureManager;
 
@@ -32,17 +31,17 @@ class FeaturesViewScanner
 
         $foundDirectives = [];
 
-        foreach($pathsToBeScanned as $path) {
+        foreach ($pathsToBeScanned as $path) {
             $views = $this->getAllBladeViewsInPath($path);
 
-            foreach($views as $view) {
+            foreach ($views as $view) {
                 $foundDirectives = array_merge($foundDirectives, $this->getFeaturesForView($view));
             }
         }
 
         $foundDirectives = array_unique($foundDirectives);
 
-        foreach($foundDirectives as $directive) {
+        foreach ($foundDirectives as $directive) {
             $this->featureManager->add($directive, $this->config->get('features.scanned_default_enabled'));
         }
 
@@ -56,14 +55,14 @@ class FeaturesViewScanner
 
         $bladeViews = [];
 
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $itemPath = $path . DIRECTORY_SEPARATOR . $file;
 
-            if(is_dir($itemPath)) {
+            if (is_dir($itemPath)) {
                 $bladeViews = array_merge($bladeViews, $this->getAllBladeViewsInPath($itemPath));
             }
 
-            if(is_file($itemPath) && ends_with($file, '.blade.php')) {
+            if (is_file($itemPath) && ends_with($file, '.blade.php')) {
                 $bladeViews[] = $itemPath;
             }
         }
@@ -77,8 +76,8 @@ class FeaturesViewScanner
         preg_match_all('/@feature\(["\'](.+)["\']\)/', $fileContents, $results);
 
         $features = [];
-        foreach($results[1] as $result) {
-            if($result !== '') {
+        foreach ($results[1] as $result) {
+            if ($result !== '') {
                 $features[] = $result;
             }
         }

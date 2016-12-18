@@ -30,9 +30,7 @@ class FeatureServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../Config/features.php', 'features'
-        );
+        $this->mergeConfigFrom(__DIR__.'/../Config/features.php', 'features');
 
         $config = $this->app->make('config');
 

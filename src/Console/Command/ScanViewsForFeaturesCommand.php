@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Console\Command;
 
-
 use Illuminate\Console\Command;
 use LaravelFeature\Service\FeaturesViewScanner;
 
@@ -30,8 +29,6 @@ class ScanViewsForFeaturesCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -52,7 +49,7 @@ class ScanViewsForFeaturesCommand extends Command
 
         $this->getOutput()->writeln('');
 
-        if(count($features) === 0) {
+        if (count($features) === 0) {
             $this->error('No features were found in the project views!');
             $this->getOutput()->writeln('');
             return;
@@ -61,12 +58,14 @@ class ScanViewsForFeaturesCommand extends Command
         $this->info(count($features) . ' features found in views:');
         $this->getOutput()->writeln('');
 
-        foreach($features as $feature) {
+        foreach ($features as $feature) {
             $this->getOutput()->writeln('- ' . $feature);
         }
 
         $this->getOutput()->writeln('');
-        $this->info('All the new features were added to the database with the ' . ($areEnabledByDefault ? 'ENABLED' : 'disabled') . ' status by default. Nothing changed for the already present ones.');
+        $this->info('All the new features were added to the database with the '
+            . ($areEnabledByDefault ? 'ENABLED' : 'disabled') .
+            ' status by default. Nothing changed for the already present ones.');
 
         $this->getOutput()->writeln('');
     }

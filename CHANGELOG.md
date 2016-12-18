@@ -2,12 +2,15 @@
 
 All Notable changes to `laravel-feature` will be documented in this file.
 
-Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+Updates follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## NEXT - YYYY-MM-DD
+## 0.1.0 - 2016-12-18
 
 ### Added
-- Nothing
+- All the domain classes and interfaces for the features management;
+- Eloquent concrete implementation of the FeatureRepositoryInterface;
+- A trait to allow every model to be "featurable";
+- A command line tool to scan views for new features and save them;
 
 ### Deprecated
 - Nothing

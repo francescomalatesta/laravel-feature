@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright (c) 2016 Francesco Malatesta <hellofrancesco@gmail.com>
+Copyright (c) 2016 Francesco Malatesta <francescomalatesta@live.it>
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal

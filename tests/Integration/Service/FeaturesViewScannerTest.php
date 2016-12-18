@@ -2,7 +2,6 @@
 
 namespace LaravelFeature\Tests\Integration\Service;
 
-
 use LaravelFeature\Tests\TestCase;
 use LaravelFeature\Domain\FeatureManager;
 use LaravelFeature\Service\FeaturesViewScanner;
