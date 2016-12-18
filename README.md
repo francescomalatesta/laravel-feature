@@ -405,8 +405,8 @@ If you discover any security related issues, please email francescomalatesta@liv
 
 ## Credits
 
-- [Francesco Malatesta][https://github.com/francescomalatesta]
-- [All Contributors][https://github.com/francescomalatesta/laravel-feature/contributors]
+* [Francesco Malatesta](https://github.com/francescomalatesta)
+* [All Contributors](https://github.com/francescomalatesta/laravel-feature/contributors)
 
 ## License
 
