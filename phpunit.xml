@@ -24,6 +24,8 @@
                 <directory suffix=".php">src/Facade</directory>
                 <directory suffix=".php">src/Featurable</directory>
                 <directory suffix=".php">src/Provider</directory>
+                <directory suffix=".php">src/Config</directory>
+                <directory suffix=".php">src/Console</directory>
             </exclude>
         </whitelist>
     </filter>

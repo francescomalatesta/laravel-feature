@@ -2,8 +2,10 @@
 
 namespace LaravelFeature\Provider;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
+use LaravelFeature\Console\Command\ScanViewsForFeaturesCommand;
 
 class FeatureServiceProvider extends ServiceProvider
 {
@@ -37,5 +39,28 @@ class FeatureServiceProvider extends ServiceProvider
         $this->app->bind(FeatureRepositoryInterface::class, function () use ($config) {
             return app()->make($config->get('features.repository'));
         });
+
+        $this->registerBladeDirective();
+        $this->registerConsoleCommand();
+    }
+
+    private function registerBladeDirective()
+    {
+        Blade::directive('feature', function ($featureName) {
+            return "<?php if (app('LaravelFeature\\Domain\\FeatureManager')->isEnabled($featureName)): ?>";
+        });
+
+        Blade::directive('endfeature', function () {
+            return '<?php endif; ?>';
+        });
+    }
+
+    private function registerConsoleCommand()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ScanViewsForFeaturesCommand::class
+            ]);
+        }
     }
 }
