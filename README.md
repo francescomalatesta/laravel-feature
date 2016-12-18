@@ -1,5 +1,6 @@
 # Laravel-Feature
 
+[![Latest Stable Version](https://poser.pugx.org/francescomalatesta/laravel-feature/v/stable)](https://packagist.org/packages/francescomalatesta/laravel-feature)
 [![Build Status](https://travis-ci.org/francescomalatesta/laravel-feature.svg?branch=master)](https://travis-ci.org/francescomalatesta/laravel-feature)
 [![Code Coverage](https://scrutinizer-ci.com/g/francescomalatesta/laravel-feature/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/francescomalatesta/laravel-feature/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/francescomalatesta/laravel-feature/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/francescomalatesta/laravel-feature/?branch=master)
