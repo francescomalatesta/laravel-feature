@@ -179,7 +179,7 @@ LaravelFeature makes this possible, and also easier just as **adding a trait to 
 
 In fact, all you need to do is to: 
 
-* **add the `Featurable` trait** to the `User` class;
+* **add the `LaravelFeature\Featurable\Featurable` trait** to the `User` class;
 * let the same class **implement the `FeaturableInterface` interface**;
 
 ```php
