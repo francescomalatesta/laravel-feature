@@ -35,7 +35,8 @@ You can install Laravel-Feature with Composer.
 $ composer require francescomalatesta/laravel-feature
 ```
 
-After that, you need to **add the `FeatureServiceProvider` to the `app.php` config file**.
+If you are on Laravel 5.5 you are all set.
+Otherwise you need to **add the `FeatureServiceProvider` to the `app.php` config file**.
 
 ```php
 ...
@@ -53,7 +54,8 @@ $ php artisan migrate
 
 ### Facade
 
-If you want, you can also **add the `Feature` facade** to the `aliases` array in the `app.php` config file.
+Again if you are on Laravel 5.5 you are all set.
+If not you can add it manually if you want, **by adding the `Feature` facade** to the `aliases` array in the `app.php` config file.
 
 ```php
 ...
@@ -99,10 +101,10 @@ Now, let's imagine a better context for our example. We're building a CMS, and o
 ```php
 class CMSController extends Controller {
     public function getPage($pageSlug) {
-        
+
         // here we are getting our page code from some service
         $content = PageService::getContentBySlug($pageSlug);
-        
+
         // here we are showing our page code
         return view('layout.pages', compact('content'));
     }
@@ -114,15 +116,15 @@ Now, we want to deploy the new service, but **we don't want to make it available
 ```php
 class CMSController extends Controller {
     public function getPage($pageSlug) {
-        
+
         // here we are getting our page code from some service
         $content = PageService::getContentBySlug($pageSlug);
-        
+
         // feature flagging here!
         if(Feature::isEnabled('page_code_cleaner')) {
             $content = PageCleanerService::clean($content);
         }
-        
+
         // here we are showing our page code
         return view('layout.pages', compact('content'));
     }
@@ -177,7 +179,7 @@ Even if the previous things we saw are useful, LaravelFeature **is not just abou
 
 LaravelFeature makes this possible, and also easier just as **adding a trait to our `User` class**.
 
-In fact, all you need to do is to: 
+In fact, all you need to do is to:
 
 * **add the `LaravelFeature\Featurable\Featurable` trait** to the `User` class;
 * let the same class **implement the `FeaturableInterface` interface**;
@@ -188,7 +190,7 @@ In fact, all you need to do is to:
 class User extends Authenticatable implements FeaturableInterface
 {
     use Notifiable, Featurable;
-    
+
 ...
 ```
 
@@ -219,9 +221,9 @@ Feature::disableFor('my.feature', $user);
 $user = Auth::user();
 
 if(Feature::isEnabledFor('my.feature', $user)) {
-    
+
     // do amazing things!
-    
+
 }
 ```
 
@@ -231,9 +233,9 @@ Right now, LaravelFeature doesn't have a Blade directive to check if a feature i
 
 ```php
 @if(Feature::isEnabledFor('my.feature', $user))
-    
+
     // do $user related things here!
-    
+
 @endif
 ```
 
@@ -247,7 +249,7 @@ Ok, now that we got the basics, let's raise the bar!
 
 As I told before, you can easily add features management for Users just by using the `Featurable` trait and implementing the `FeaturableInterface` in the User model. However, when structuring the relationships, I decided to implement a **many-to-many polymorphic relationship**. This means that you can **add feature management to any model**!
 
-Let's make an example: imagine that **you have a `Role` model** you use to implement a basic roles systems for your users. This because you have admins and normal users. 
+Let's make an example: imagine that **you have a `Role` model** you use to implement a basic roles systems for your users. This because you have admins and normal users.
 
 So, **you rolled out the amazing killer feature but you want to enable it only for admins**. How to do this? Easy. Recap:
 
@@ -271,7 +273,7 @@ Feature::enableFor('my.feature', $role);
 if(Feature::isEnabledFor('my.feature', $role)) {
 
     // this code will be executed only if the user is an admin!
-    
+
 }
 ```
 
@@ -293,7 +295,7 @@ Try it, you will like it!
 
 ### Using a Custom Features Repository
 
-Imagine that you want to **change the place or the way you store features**. For some crazy reason, you want to store it on a static file, or on Dropbox. 
+Imagine that you want to **change the place or the way you store features**. For some crazy reason, you want to store it on a static file, or on Dropbox.
 
 Now, Eloquent doesn't have a Dropbox driver, so you can't use this package. **Bye.**
 
