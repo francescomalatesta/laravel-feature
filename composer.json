@@ -41,5 +41,15 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelFeature\\Provider\\FeatureServiceProvider"
+            ],
+            "aliases": {
+                "Feature": "LaravelFeature\\Facade\\Feature"   
+            }
+        }
     }
 }
