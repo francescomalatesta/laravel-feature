@@ -32,7 +32,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
         $this->repository->save($feature);
 
-        $this->seeInDatabase('features', [
+        $this->assertDatabaseHas('features', [
             'name' => 'my.feature',
             'is_enabled' => true
         ]);
@@ -61,7 +61,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
         $this->repository->remove($feature);
 
-        $this->dontSeeInDatabase('features', [
+        $this->assertDatabaseMissing('features', [
             'name' => 'test.feature'
         ]);
     }
@@ -119,7 +119,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
         $this->repository->enableFor('test.feature', $entity);
 
-        $this->seeInDatabase('featurables', [
+        $this->assertDatabaseHas('featurables', [
             'feature_id' => $feature->id,
             'featurable_id' => $entity->id,
             'featurable_type' => get_class($entity)
@@ -157,7 +157,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
         $this->repository->enableFor('test.feature', $entity);
 
-        $this->dontSeeInDatabase('featurables', [
+        $this->assertDatabaseMissing('featurables', [
             'feature_id' => $feature->id,
             'featurable_id' => $entity->id,
             'featurable_type' => get_class($entity)
@@ -179,7 +179,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
         $this->repository->disableFor('test.feature', $entity);
 
-        $this->dontSeeInDatabase('featurables', [
+        $this->assertDatabaseMissing('featurables', [
             'feature_id' => $feature->id,
             'featurable_id' => $entity->id,
             'featurable_type' => get_class($entity)
@@ -220,7 +220,7 @@ class EloquentFeatureRepositoryTest extends TestCase
 
         $this->repository->disableFor('test.feature', $entity);
 
-        $this->dontSeeInDatabase('featurables', [
+        $this->assertDatabaseMissing('featurables', [
             'feature_id' => $feature->id,
             'featurable_id' => $entity->id,
             'featurable_type' => get_class($entity)

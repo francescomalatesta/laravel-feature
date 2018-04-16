@@ -7,8 +7,9 @@ use LaravelFeature\Domain\Exception\FeatureException;
 use LaravelFeature\Domain\Model\Feature;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 use LaravelFeature\Featurable\FeaturableInterface;
+use PHPUnit\Framework\TestCase;
 
-class FeatureManagerTest extends \PHPUnit_Framework_TestCase
+class FeatureManagerTest extends TestCase
 {
     /** @var FeatureRepositoryInterface | \PHPUnit_Framework_MockObject_MockObject */
     private $repositoryMock;

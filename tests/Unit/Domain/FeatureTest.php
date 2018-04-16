@@ -3,8 +3,9 @@
 namespace LaravelFeature\Tests\Domain;
 
 use LaravelFeature\Domain\Model\Feature;
+use PHPUnit\Framework\TestCase;
 
-class FeatureTest extends \PHPUnit_Framework_TestCase
+class FeatureTest extends TestCase
 {
     /**
      * Tests a simple feature object creation.
