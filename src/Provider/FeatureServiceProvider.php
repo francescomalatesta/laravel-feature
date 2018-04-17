@@ -61,7 +61,7 @@ class FeatureServiceProvider extends ServiceProvider
 
     private function registerBladeFeatureForDirective()
     {
-        Blade::directive('featurefor', function($args) {
+        Blade::directive('featurefor', function ($args) {
             return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabledFor($args)): ?>";
         });
 
