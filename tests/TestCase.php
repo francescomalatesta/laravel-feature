@@ -32,4 +32,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'prefix'   => '',
         ]);
     }
+
+    protected function getPackageProviders($app)
+    {
+        return [\LaravelFeature\Provider\FeatureServiceProvider::class];
+    }
 }
