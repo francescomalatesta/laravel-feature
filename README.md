@@ -227,17 +227,14 @@ if(Feature::isEnabledFor('my.feature', $user)) {
 
 #### Other Notes
 
-Right now, LaravelFeature doesn't have a Blade directive to check if a feature is enabled for a specific user. However, you can still use
-
+LaravelFeature also provides a Blade directive to check if a feature is enabled for a specific user. You can use the `@featurefor` blade tags:
 ```php
-@if(Feature::isEnabledFor('my.feature', $user))
+@featurefor('my.feature', $user)
     
     // do $user related things here!
     
-@endif
+@endfeaturefor
 ```
-
-without any issues! However, **new developments are on the way ;)**
 
 ## Advanced Things
 
