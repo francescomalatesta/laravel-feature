@@ -38,17 +38,34 @@ class FeatureServiceProvider extends ServiceProvider
             return app()->make($config->get('features.repository'));
         });
 
-        $this->registerBladeDirective();
+        $this->registerBladeDirectives();
         $this->registerConsoleCommand();
     }
 
-    private function registerBladeDirective()
+    private function registerBladeDirectives()
+    {
+        $this->registerBladeFeatureDirective();
+        $this->registerBladeFeatureForDirective();
+    }
+
+    private function registerBladeFeatureDirective()
     {
         Blade::directive('feature', function ($featureName) {
-            return "<?php if (app('LaravelFeature\\Domain\\FeatureManager')->isEnabled($featureName)): ?>";
+            return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabled($featureName)): ?>";
         });
 
         Blade::directive('endfeature', function () {
+            return '<?php endif; ?>';
+        });
+    }
+
+    private function registerBladeFeatureForDirective()
+    {
+        Blade::directive('featurefor', function ($args) {
+            return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabledFor($args)): ?>";
+        });
+
+        Blade::directive('endfeaturefor', function () {
             return '<?php endif; ?>';
         });
     }
