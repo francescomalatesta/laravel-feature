@@ -73,15 +73,12 @@ class FeaturesViewScanner
     private function getFeaturesForView($view)
     {
         $fileContents = file_get_contents($view);
-        preg_match_all('/@feature\(["\'](.+)["\']\)/', $fileContents, $results);
 
-        $features = [];
-        foreach ($results[1] as $result) {
-            if ($result !== '') {
-                $features[] = $result;
-            }
-        }
+        preg_match_all('/@feature\(["\'](.+)["\']\)|@featurefor\(["\'](.+)["\']\,.*\)/', $fileContents, $results);
 
-        return $features;
+        return collect($results[1])
+            ->merge($results[2])
+            ->filter()
+            ->toArray();
     }
 }
