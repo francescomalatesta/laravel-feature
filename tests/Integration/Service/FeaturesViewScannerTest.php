@@ -30,10 +30,12 @@ class FeaturesViewScannerTest extends TestCase
     {
         $foundDirectives = $this->service->scan();
 
-        $this->assertCount(2, $foundDirectives);
+        $this->assertCount(4, $foundDirectives);
         $this->assertEquals([
             'my.feature',
-            'my.second_feature'
+            'my.second_feature',
+            'my.feature.for',
+            'my.second_feature.for'
         ], $foundDirectives);
     }
 }
