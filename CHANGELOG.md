@@ -4,6 +4,11 @@ All Notable changes to `laravel-feature` will be documented in this file.
 
 Updates follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [Unreleased]
+
+### Added
+- Add method signature to PHPDoc of the Feature facade
+
 ## 0.1.0 - 2016-12-18
 
 ### Added
