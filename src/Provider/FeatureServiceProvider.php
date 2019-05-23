@@ -2,7 +2,7 @@
 
 namespace LaravelFeature\Provider;
 
-use Illuminate\Support\Facades\Blade;
+use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\Support\ServiceProvider;
 use LaravelFeature\Domain\Repository\FeatureRepositoryInterface;
 use LaravelFeature\Console\Command\ScanViewsForFeaturesCommand;
@@ -44,29 +44,22 @@ class FeatureServiceProvider extends ServiceProvider
 
     private function registerBladeDirectives()
     {
-        $this->registerBladeFeatureDirective();
-        $this->registerBladeFeatureForDirective();
-    }
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+            $bladeCompiler->directive('feature', function ($featureName) {
+                return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabled($featureName)): ?>";
+            });
 
-    private function registerBladeFeatureDirective()
-    {
-        Blade::directive('feature', function ($featureName) {
-            return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabled($featureName)): ?>";
-        });
+            $bladeCompiler->directive('endfeature', function () {
+                return '<?php endif; ?>';
+            });
 
-        Blade::directive('endfeature', function () {
-            return '<?php endif; ?>';
-        });
-    }
+            $bladeCompiler->directive('featurefor', function ($args) {
+                return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabledFor($args)): ?>";
+            });
 
-    private function registerBladeFeatureForDirective()
-    {
-        Blade::directive('featurefor', function ($args) {
-            return "<?php if (app(\\LaravelFeature\\Domain\\FeatureManager::class)->isEnabledFor($args)): ?>";
-        });
-
-        Blade::directive('endfeaturefor', function () {
-            return '<?php endif; ?>';
+            $bladeCompiler->directive('endfeaturefor', function () {
+                return '<?php endif; ?>';
+            });
         });
     }
 
