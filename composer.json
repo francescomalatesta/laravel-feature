@@ -1,5 +1,5 @@
 {
-    "name": "TotalServerSolutions/laravel-feature",
+    "name": "totalserversolutions/laravel-feature",
     "type": "library",
     "description": "A simple package to manage feature flagging in a Laravel project.",
     "keywords": ["laravel", "feature", "flag"],
