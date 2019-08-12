@@ -21,6 +21,8 @@ class FeatureServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../Config/features.php' => config_path('features.php'),
         ]);
+
+        $this->registerBladeDirectives();
     }
 
     /**
@@ -38,7 +40,6 @@ class FeatureServiceProvider extends ServiceProvider
             return app()->make($config->get('features.repository'));
         });
 
-        $this->registerBladeDirectives();
         $this->registerConsoleCommand();
     }
 
