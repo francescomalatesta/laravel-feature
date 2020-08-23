@@ -4,14 +4,11 @@ namespace LaravelFeature\Tests;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom([
-            '--database' => 'testing',
-            '--realpath' => realpath(__DIR__.'/../src/Migration'),
-        ]);
+        $this->loadMigrationsFrom(__DIR__.'/../src/Migration');
     }
 
     /**

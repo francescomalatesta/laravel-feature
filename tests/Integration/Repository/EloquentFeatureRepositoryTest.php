@@ -16,7 +16,7 @@ class EloquentFeatureRepositoryTest extends TestCase
     /** @var EloquentFeatureRepository */
     private $repository;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

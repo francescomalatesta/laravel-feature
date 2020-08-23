@@ -17,7 +17,7 @@ class FeatureManagerTest extends TestCase
     /** @var FeatureManager */
     private $manager;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

@@ -11,7 +11,7 @@ class FeaturesViewScannerTest extends TestCase
     /** @var FeaturesViewScanner */
     private $service;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

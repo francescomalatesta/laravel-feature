@@ -10,7 +10,7 @@ class BladeFeatureTest extends TestCase
     /** @var BladeCompiler */
     private $compiler;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
