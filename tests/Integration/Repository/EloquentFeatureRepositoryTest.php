@@ -38,6 +38,20 @@ class EloquentFeatureRepositoryTest extends TestCase
         ]);
     }
 
+    public function testSaveDoesNotModifyStatusOfExistingFeatures()
+    {
+        $feature = Feature::fromNameAndStatus('my.first.feature', true);
+        $scannedFeature = Feature::fromNameAndStatus('my.first.feature', false);
+        $this->repository->save($feature);
+
+        $this->repository->save($scannedFeature);
+
+        $this->assertDatabaseHas('features', [
+            'name' => 'my.first.feature',
+            'is_enabled' => true,
+        ]);
+    }
+
     /**
      * Tests that the save operation throws an exception if something goes wrong.
      *
