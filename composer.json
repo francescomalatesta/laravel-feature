@@ -1,9 +1,9 @@
 {
-    "name": "francescomalatesta/laravel-feature",
+    "name": "adaviloper/laravel-feature",
     "type": "library",
     "description": "A simple package to manage feature flagging in a Laravel project.",
     "keywords": ["laravel", "feature", "flag"],
-    "homepage": "https://github.com/francescomalatesta/laravel-feature",
+    "homepage": "https://github.com/adaviladev/laravel-feature",
     "license": "MIT",
     "authors": [
         {
@@ -11,6 +11,11 @@
             "email": "hellofrancesco@gmail.com",
             "homepage": "https://github.com/francescomalatesta",
             "role": "Developer"
+        },
+        {
+            "name": "Adrian Davila",
+            "homepage": "https://github.com/adaviladev",
+            "role": "Contributor"
         }
     ],
     "require": {
