@@ -16,7 +16,7 @@ class EloquentFeatureRepositoryTest extends TestCase
     /** @var EloquentFeatureRepository */
     private $repository;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -35,6 +35,20 @@ class EloquentFeatureRepositoryTest extends TestCase
         $this->assertDatabaseHas('features', [
             'name' => 'my.feature',
             'is_enabled' => true
+        ]);
+    }
+
+    public function testSaveDoesNotModifyStatusOfExistingFeatures()
+    {
+        $feature = Feature::fromNameAndStatus('my.first.feature', true);
+        $scannedFeature = Feature::fromNameAndStatus('my.first.feature', false);
+        $this->repository->save($feature);
+
+        $this->repository->save($scannedFeature);
+
+        $this->assertDatabaseHas('features', [
+            'name' => 'my.first.feature',
+            'is_enabled' => true,
         ]);
     }
 
