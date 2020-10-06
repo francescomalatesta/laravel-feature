@@ -1,5 +1,5 @@
 {
-    "name": "francescomalatesta/laravel-feature",
+    "name": "onlinemeded/laravel-feature",
     "type": "library",
     "description": "A simple package to manage feature flagging in a Laravel project.",
     "keywords": ["laravel", "feature", "flag"],
