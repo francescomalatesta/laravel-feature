@@ -20,7 +20,7 @@ class EloquentFeatureRepository implements FeatureRepositoryInterface
         }
 
         $model->name = $feature->getName();
-        $model->is_enabled = $model->is_enabled ?? $feature->isEnabled();
+        $model->is_enabled = $feature->isEnabled();
 
         try {
             $model->save();
