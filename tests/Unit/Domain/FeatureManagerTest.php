@@ -42,15 +42,15 @@ class FeatureManagerTest extends TestCase
 
     /**
      * Tests an exception is thrown if something goes wrong during the saving of a new feature.
-     *
-     * @expectedException \LaravelFeature\Domain\Exception\FeatureException
-     * @expectedExceptionMessage Unable to save the feature.
      */
     public function testAddThrowsExceptionOnError()
     {
         $this->repositoryMock->expects($this->once())
             ->method('save')
             ->willThrowException(new FeatureException('Unable to save the feature.'));
+
+        $this->expectException(FeatureException::class);
+        $this->expectExceptionMessage('Unable to save the feature.');
 
         $this->manager->add('my.feature', true);
     }
@@ -74,10 +74,6 @@ class FeatureManagerTest extends TestCase
         $this->manager->remove('my.feature');
     }
 
-    /**
-     * @expectedException \LaravelFeature\Domain\Exception\FeatureException
-     * @expectedExceptionMessage Unable to remove the feature.
-     */
     public function testRemoveThrowsExceptionOnError()
     {
         $feature = $this->getMockBuilder(Feature::class)
@@ -91,6 +87,9 @@ class FeatureManagerTest extends TestCase
         $this->repositoryMock->expects($this->once())
             ->method('remove')
             ->willThrowException(new FeatureException('Unable to remove the feature.'));
+
+        $this->expectException(FeatureException::class);
+        $this->expectExceptionMessage('Unable to remove the feature.');
 
         $this->manager->remove('my.feature');
     }
@@ -116,9 +115,6 @@ class FeatureManagerTest extends TestCase
 
     /**
      * Tests that an exception is thrown if the feature is not found.
-     *
-     * @expectedException \LaravelFeature\Domain\Exception\FeatureException
-     * @expectedExceptionMessage Unable to save the feature.
      */
     public function testRenameFeatureThrowsError()
     {
@@ -133,6 +129,9 @@ class FeatureManagerTest extends TestCase
         $this->repositoryMock->expects($this->once())
             ->method('save')
             ->willThrowException(new FeatureException('Unable to save the feature.'));
+
+        $this->expectException(FeatureException::class);
+        $this->expectExceptionMessage('Unable to save the feature.');
 
         $this->manager->rename('old.feature', 'new.feature');
     }
