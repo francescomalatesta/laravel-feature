@@ -72,7 +72,6 @@ jobs:
             - name: Execute PHP_CodeSniffer
               run: |
                   php -v
-                  cp .env.testing .env
                   composer check-style
 
     phpunit:
@@ -106,7 +105,6 @@ jobs:
 
             - name: Execute tests
               run: |
-                  cp .env.testing .env
                   php -v
                   ./vendor/phpunit/phpunit/phpunit --version
                   ./vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml
