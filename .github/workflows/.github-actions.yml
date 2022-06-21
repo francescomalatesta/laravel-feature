@@ -78,13 +78,6 @@ jobs:
 #                  export CODECOV_TOKEN=${{ secrets.CODECOV_TOKEN }}
 #                  bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
 
-            - name: Upload log artifacts
-              uses: actions/upload-artifact@v2
-              with:
-                  name: logs
-                  path: ~/storage/logs
-                  retention-days: 3
-
     package-security-checker:
         runs-on: ubuntu-latest
 
