@@ -1,0 +1,143 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - production
+            - dev
+        tags:
+            - '*'
+    pull_request:
+        branches: [ production ]
+
+    workflow_dispatch:
+
+jobs:
+    composer:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v2
+
+            - name: Setup PHP with composer v2
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.1'
+                  tools: composer:v2
+
+            - name: Install composer packages
+              run: |
+                  php -v
+                  composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+
+            - name: Compress composer folder
+              run: tar -czvf composer.tgz vendor/
+
+            - name: Upload composer assets
+              uses: actions/upload-artifact@v2
+              with:
+                  name: composer
+                  path: composer.tgz
+                  retention-days: 3
+
+    phpcs:
+        strategy:
+            matrix:
+                version: ['7.4', '8.1']
+        runs-on: ubuntu-latest
+        needs: [composer]
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Download composer artifacts
+              uses: actions/download-artifact@v2
+              with:
+                  name: composer
+
+            - name: Unpack composer artifacts
+              run: |
+                  tar xvfz composer.tgz
+
+            - name: Setup PHP with composer v2
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.version }}
+                  tools: composer:v2
+
+            - name: Execute PHP_CodeSniffer
+              run: |
+                  php -v
+                  cp .env.testing .env
+                  composer check-style
+
+    phpunit:
+        strategy:
+            matrix:
+                version: ['7.4', '8.1']
+        runs-on: ubuntu-latest
+        needs: [composer]
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Download composer artifacts
+              uses: actions/download-artifact@v2
+              with:
+                  name: composer
+
+            - name: Unpack composer artifacts
+              run: |
+                  tar xvfz composer.tgz
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.version }}
+                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, intl, exif, iconv
+                  coverage: xdebug
+
+            - name: Execute tests
+              run: |
+                  cp .env.testing .env
+                  php -v
+                  ./vendor/phpunit/phpunit/phpunit --version
+                  ./vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml
+#                  export CODECOV_TOKEN=${{ secrets.CODECOV_TOKEN }}
+#                  bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
+
+#            - name: Upload code coverage
+#              run: |
+#                  export CODECOV_TOKEN=${{ secrets.CODECOV_TOKEN }}
+#                  bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
+
+            - name: Upload log artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: logs
+                  path: ~/storage/logs
+                  retention-days: 3
+
+    package-security-checker:
+        runs-on: ubuntu-latest
+        needs: [composer]
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+
+            - name: Install security-checker
+              run: |
+                  test -d local-php-security-checker || curl -L https://github.com/fabpot/local-php-security-checker/releases/download/v1.2.0/local-php-security-checker_1.2.0_linux_amd64 --output local-php-security-checker
+                  chmod +x local-php-security-checker
+                  ./local-php-security-checker

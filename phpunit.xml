@@ -17,23 +17,4 @@
             <directory>tests/Integration</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-            <exclude>
-                <directory suffix=".php">src/Facade</directory>
-                <directory suffix=".php">src/Featurable</directory>
-                <directory suffix=".php">src/Provider</directory>
-                <directory suffix=".php">src/Config</directory>
-                <directory suffix=".php">src/Console</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="tap" target="build/report.tap"/>
-        <log type="junit" target="build/report.junit.xml"/>
-        <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
-        <log type="coverage-text" target="build/coverage.txt"/>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
 </phpunit>
